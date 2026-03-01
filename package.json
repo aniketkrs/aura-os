@@ -1,10 +1,10 @@
 {
   "name": "aura-os",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Aura OS — Terminal-Native AI Operating System with agents, email, browser, tasks, and natural language commands",
   "main": "dist/boot.js",
   "bin": {
-    "aura-os": "./dist/boot.js"
+    "aura-os": "dist/boot.js"
   },
   "files": [
     "dist/",

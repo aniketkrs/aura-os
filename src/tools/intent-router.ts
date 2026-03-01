@@ -162,6 +162,18 @@ const INTENT_PATTERNS: IntentPattern[] = [
         args: (match) => match[3]?.trim() || '',
         display: 'Switching model...',
     },
+
+    // ── Logout / Sign Out ──────────────────────────────────────────────────────
+    {
+        keywords: /\b(log\s*out|sign\s*out|logout|signout)\b/i,
+        command: '/logout', args: '',
+        display: 'Signing out...',
+    },
+    {
+        keywords: /\b(exit|quit|bye|goodbye|close)\b\s*$/i,
+        command: '/quit', args: '',
+        display: 'Exiting...',
+    },
 ];
 
 /**

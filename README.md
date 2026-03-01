@@ -2,6 +2,11 @@
 
 **Terminal-Native AI Operating System — Project Z×Claw**
 
+[![npm version](https://img.shields.io/npm/v/aura-os?color=a78bfa&style=flat-square)](https://www.npmjs.com/package/aura-os)
+[![npm downloads](https://img.shields.io/npm/dm/aura-os?color=22d3ee&style=flat-square)](https://www.npmjs.com/package/aura-os)
+[![license](https://img.shields.io/npm/l/aura-os?color=34d399&style=flat-square)](LICENSE)
+[![node](https://img.shields.io/node/v/aura-os?color=f59e0b&style=flat-square)](package.json)
+
 > Everything happens inside your terminal. No browser, no GUI, no pop-ups.
 > Chat with AI, manage tasks, read email, browse the web, run agents — all from one place.
 

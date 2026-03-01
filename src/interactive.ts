@@ -1972,26 +1972,20 @@ async function handleQuit(): Promise<void> {
 }
 
 async function handleLogout(rl: readline.Interface): Promise<void> {
-  const fs = await import('fs-extra');
-  const dataDir = (await import('./data/profile')).getDataDir();
-
   console.log('');
   console.log(T.dim('  ' + '─'.repeat(72)));
   console.log(`  ${T.nova('⚠')}  ${T.auraBold('Logout / Sign Out')}`);
   console.log(T.dim('  ' + '─'.repeat(72)));
   console.log('');
   console.log(`  ${T.muted('This will:')}`);
-  console.log(`    ${T.nova('•')} Destroy your current session`);
-  console.log(`    ${T.nova('•')} Clear all stored API keys`);
-  console.log(`    ${T.nova('•')} Remove Google OAuth credentials`);
-  console.log(`    ${T.nova('•')} Wipe your profile & preferences`);
+  console.log(`    ${T.nova('•')} End your current session`);
   console.log(`    ${T.nova('•')} Stop all running agents`);
   console.log('');
-  console.log(`  ${T.muted('Your PIN will remain — you can log back in anytime.')}`);
+  console.log(`  ${T.aurora('✓')} ${T.muted('Your API keys, profile, and preferences will be preserved.')}`);
   console.log('');
 
   const answer = await new Promise<string>(resolve =>
-    rl.question(`  ${T.aura('?')} ${T.white('Are you sure you want to log out?')} ${T.muted('(yes/no)')} `, resolve)
+    rl.question(`  ${T.aura('?')} ${T.white('Sign out?')} ${T.muted('(yes/no)')} `, resolve)
   );
 
   if (!answer.toLowerCase().startsWith('y')) {
@@ -1999,7 +1993,7 @@ async function handleLogout(rl: readline.Interface): Promise<void> {
     return;
   }
 
-  const spin = new Typing('Logging out...').start();
+  const spin = new Typing('Signing out...').start();
 
   // 1. Stop all agents
   stopAllAgents();
@@ -2010,38 +2004,16 @@ async function handleLogout(rl: readline.Interface): Promise<void> {
   // 3. Disconnect integrations
   try { await disconnectAll(); } catch { /* ignore */ }
 
-  // 4. Clear stored API keys
-  const keysPath = path.join(dataDir, '.keys.json');
-  if (await fs.pathExists(keysPath)) {
-    const size = (await fs.stat(keysPath)).size;
-    await fs.writeFile(keysPath, Buffer.alloc(size, 0)); // zero-fill
-    await fs.remove(keysPath);
-  }
-
-  // 5. Clear Google OAuth credentials
-  const googleCredsPath = path.join(dataDir, '.google-creds.json');
-  if (await fs.pathExists(googleCredsPath)) {
-    const size = (await fs.stat(googleCredsPath)).size;
-    await fs.writeFile(googleCredsPath, Buffer.alloc(size, 0));
-    await fs.remove(googleCredsPath);
-  }
-
-  // 6. Clear profile (but keep PIN so they can log back in)
-  const profilePath = path.join(dataDir, 'profile.json');
-  if (await fs.pathExists(profilePath)) {
-    await fs.remove(profilePath);
-  }
-
-  // 7. Destroy session
+  // 4. Destroy session (API keys, profile, Google creds stay intact)
   await destroySession();
 
-  spin.stop(`  ${T.aurora(Sym.check)} Logged out successfully.`);
+  spin.stop(`  ${T.aurora(Sym.check)} Signed out.`);
 
   console.log('');
   console.clear();
   printBanner();
   console.log(T.dim('  ' + '─'.repeat(72)));
-  console.log(`  ${T.aura(Sym.sparkle)}  ${T.auraBold('Signed out.')}  ${T.muted('All data wiped. See you next time!')}`);
+  console.log(`  ${T.aura(Sym.sparkle)}  ${T.auraBold('Signed out.')}  ${T.muted('Your data is safe. See you soon!')}`);
   console.log(T.dim('  ' + '─'.repeat(72)));
   console.log('');
   console.log(`  ${T.muted('Run')} ${T.aura('aura-os')} ${T.muted('or')} ${T.aura('npm start')} ${T.muted('to sign back in.')}`);

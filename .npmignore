@@ -1,0 +1,26 @@
+# Source (compiled dist/ is published instead)
+src/
+tsconfig.json
+
+# Dev files
+.git/
+.gitignore
+.vscode/
+.idea/
+*.md
+!README.md
+
+# Credentials — NEVER ship
+.env
+.env.*
+**/.keys.json
+**/.auth
+**/credentials.json
+**/token.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Tests & dev logs
+*.log

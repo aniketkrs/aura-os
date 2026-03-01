@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Desktop_Commander__list_directory",
+      "mcp__Desktop_Commander__read_file",
+      "mcp__Desktop_Commander__start_search",
+      "Bash(npx tsc --noEmit)",
+      "Bash(node -e \"const z = require\\(''zod''\\); console.log\\(typeof z.ZodType\\)\")",
+      "Bash(npm start)",
+      "mcp__Desktop_Commander__get_more_search_results",
+      "Bash(npx tsc)"
+    ]
+  }
+}
